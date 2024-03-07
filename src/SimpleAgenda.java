@@ -1,29 +1,46 @@
 import java.util.Scanner;
 
 public class SimpleAgenda {
+    private static String[] contactos = new String[10];
+
     public static void agregarContacto() {
         Scanner sc = new Scanner(System.in);
-
-        String contacto;
-
         System.out.println("Ingrese el contacto a agregar");
+        String nuevo_contacto = sc.nextLine();
 
-        contacto = sc.nextLine();
-
-        if (contacto.length() > 4 && contacto.length() < 8) {
-            System.out.println("Contacto agregado con éxito");
-        } else if (contacto.length() >= 8 && contacto.length() <= 30) {
-            System.out.println("Agregado, contiene entre 8-30 caracteres");
-        } else {
-            System.out.println("Nombre muy largo");
+        int counter = -1;
+        for (String c : contactos) {
+            counter++;
+            if (c != null && c.equals(nuevo_contacto)) {
+                System.out.println("Ya se ha agregado anteriormente");
+                return; // Exit the method if contact already exists
+            }
         }
+        contactos[counter] = nuevo_contacto;
+        System.out.println("Agregado satisfactoriamente");
     }
 
-    public static void removerContacto(int id) {
-        if (id >= 1000 && id <= 9999) {
-            System.out.println("Verificando contacto a eliminar...");
-        } else {
-            System.out.println("ID inválido");
+    public static void removerContacto() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Ingrese el contacto a remover");
+        String contacto_eliminar = sc.nextLine();
+
+        for (int i = 0; i < contactos.length; i++) {
+            if (contactos[i] != null && contactos[i].equals(contacto_eliminar)) {
+                contactos[i] = null;
+                System.out.println("El contacto " + contacto_eliminar + " fue removido exitosamente!");
+                return; // Exit the method after removing the contact
+            }
+        }
+        System.out.println("No existe tal contacto");
+    }
+
+    public static void mostrarContacto() {
+        System.out.println("Mostrando contactos...");
+        for (String c : contactos) {
+            if (c != null) {
+                System.out.println(c);
+            }
         }
     }
 
@@ -31,13 +48,9 @@ public class SimpleAgenda {
         return "N/A";
     }
 
-    public static void mostrarContactos() {
-        System.out.println("Mostrando contactos...");
-    }
-
     public static void main(String[] args) {
         agregarContacto();
-        removerContacto(5478);
-        mostrarContactos();
+        removerContacto();
+        mostrarContacto();
     }
 }
