@@ -44,10 +44,6 @@ public class SimpleAgenda {
         }
     }
 
-    public static String actualizarContacto(int posicion) {
-        return "N/A";
-    }
-
     public static void main(String[] args) {
         agregarContacto();
         removerContacto();
